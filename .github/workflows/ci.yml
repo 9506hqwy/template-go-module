@@ -29,7 +29,9 @@ jobs:
 
     - name: Check Lint
       if: matrix.os == 'ubuntu-latest'
-      run: staticcheck ./...
+      run: |
+        PATH="$(go env GOPATH)/bin:$PATH"
+        staticcheck ./...
 
     - name: Run Tests
       run: go test -v -cover -coverprofile cover.out ./...
@@ -45,7 +47,7 @@ jobs:
     - name: Generate Coverage Report (Windows)
       if: matrix.os == 'windows-latest'
       run: |
-        go tool cover -html=cover.out -o coverage.html
+        go tool cover -html cover.out -o coverage.html
 
         mkdir .\artifacts
         Compress-Archive -Path 'coverage.html' -DestinationPath ".\artifacts\coverage.zip"
@@ -81,25 +83,25 @@ jobs:
     - name: Create Archive (Ubuntu)
       if: matrix.os == 'ubuntu-latest'
       run: |
-        RUST_TARGET=`rustup show active-toolchain | sed -e 's/[^-]*-\(.*\)\s.*/\1/'`
+        GO_TARGET="$(go env GOARCH)-$(go env GOOS)-$(go env GOVERSION)"
 
         CUR_DIR=$(pwd)
         LIB_DIR='./bin'
         pushd "$LIB_DIR"
         FILES=$(find . -maxdepth 1 -type f \( -name '*.so' -o -name '*.a' -o -executable \))
         if [[ -n $FILES ]] ; then
-            tar -zcf "${CUR_DIR}/artifacts/${RUST_TARGET}.tar.gz" $FILES
+            tar -zcf "${CUR_DIR}/artifacts/${GO_TARGET}.tar.gz" $FILES
         fi
         popd
 
-        echo "RUST_TARGET=${RUST_TARGET}" >> $GITHUB_ENV
+        echo "GO_TARGET=${GO_TARGET}" >> $GITHUB_ENV
 
     - name: Create Archive (Windows)
       if: matrix.os == 'windows-latest'
       run: |
-        $RUST_TARGET = $(rustup show active-toolchain) -replace '[^-]*-(?<host>.*)\s.*', '${host}'
+        $GO_TARGET = "$(go env GOARCH)-$(go env GOOS)-$(go env GOVERSION)"
 
-        $binS = @(
+        $TARGETS = @(
           'bin\*.exe',
           'bin\*.dll',
           'bin\*.exp',
@@ -107,14 +109,14 @@ jobs:
         )
         $LIBS = @(Get-Item -Path $TARGETS)
         if ($LIBS.Length -gt 0) {
-            Compress-Archive -Path $LIBS -DestinationPath ".\artifacts\${RUST_TARGET}.zip"
+            Compress-Archive -Path $LIBS -DestinationPath ".\artifacts\${GO_TARGET}.zip"
         }
 
-        Write-Output "RUST_TARGET=$RUST_TARGET" >> $env:GITHUB_ENV
+        Write-Output "GO_TARGET=$GO_TARGET" >> $env:GITHUB_ENV
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.RUST_TARGET }}
+        name: ${{ env.GO_TARGET }}
         path: artifacts/
         retention-days: 1
