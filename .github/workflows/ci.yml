@@ -94,6 +94,8 @@ jobs:
 
         ./scripts/gen-docs.sh
 
+        go tool go-licenses save ./... --save_path ./artifacts/licenses
+
         echo "GO_TARGET=${GO_TARGET}" >> $GITHUB_ENV
 
     - name: Create Archive (Windows)
@@ -111,6 +113,8 @@ jobs:
         if ($LIBS.Length -gt 0) {
             Compress-Archive -Path $LIBS -DestinationPath ".\artifacts\${GO_TARGET}.zip"
         }
+
+        go tool go-licenses save ./... --save_path .\artifacts\licenses
 
         Write-Output "GO_TARGET=$GO_TARGET" >> $env:GITHUB_ENV
 

@@ -7,7 +7,7 @@ MODULE_NAME=$(basename "${BASE_PATH}")
 SERVER='localhost:6060'
 
 go tool godoc -http="${SERVER}" &
-sleep 3
+curl --retry-connrefused --retry 5 -m 10 -s -o /dev/null "http://${SERVER}/pkg"
 
 pushd /tmp || exit
     wget \
