@@ -49,6 +49,12 @@ Check dependency license.
 go tool go-licenses report ./...
 ```
 
+Dump dependency licenses.
+
+```sh
+go tool go-licenses save ./... --save_path ./licenses
+```
+
 ### Documentation
 
 Generate API document.
