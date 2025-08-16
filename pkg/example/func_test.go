@@ -19,3 +19,17 @@ func Test_sub(t *testing.T) {
 		t.Error("Failed.", ret)
 	}
 }
+
+func Benchmark_add(b *testing.B) {
+	b.ResetTimer()
+	for b.Loop() {
+		_ = example.Add(1, 2)
+	}
+}
+
+func Benchmark_sub(b *testing.B) {
+	b.ResetTimer()
+	for b.Loop() {
+		_ = example.Sub(2, 1)
+	}
+}

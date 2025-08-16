@@ -33,6 +33,14 @@ Execute test code.
 go test ./...
 ```
 
+### Benchmark
+
+Run test with benchmark. N is iteration count.
+
+```sh
+go test ./... -bench "." -count N
+```
+
 ### Updating
 
 Update dependency tools.
