@@ -33,6 +33,26 @@ Execute test code.
 go test ./...
 ```
 
+### Profiling
+
+Run benchmark with profiler.
+
+```sh
+go test <Package Path> -bench "." -cpuprofile cpu.prof -memprofile mem.prof
+```
+
+Show summary.
+
+```sh
+go tool pprof --text <Profile File>
+```
+
+Convert to image file from pprof file.
+
+```sh
+go tool pprof --png <Profile File> > profile.png
+```
+
 ### Benchmark
 
 Run test with benchmark. N is iteration count.
@@ -51,7 +71,7 @@ go get -u tool
 
 ### License Checking
 
-Check dependency license.
+Check dependency licenses.
 
 ```sh
 go tool go-licenses report ./...
