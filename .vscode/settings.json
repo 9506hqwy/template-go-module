@@ -8,6 +8,10 @@
             "ST1000": false,
         },
     },
+    "go.lintTool": "revive",
+    "go.lintFlags": [
+        "-config=${workspaceFolder}/revive.toml"
+    ],
     "[markdown]": {
         "editor.codeActionsOnSave": {
             "source.fixAll.markdownlint": "explicit"

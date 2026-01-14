@@ -6,6 +6,8 @@ import (
 	"github.com/9506hqwy/template-go-module/pkg/example"
 )
 
+//revive:disable:add-constant
+
 func Test_add(t *testing.T) {
 	ret := example.Add(1, 2)
 	if ret != 3 {
@@ -33,3 +35,5 @@ func Benchmark_sub(b *testing.B) {
 		_ = example.Sub(2, 1)
 	}
 }
+
+//revive:enable:add-constant

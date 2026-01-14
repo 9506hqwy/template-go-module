@@ -10,7 +10,16 @@ var version = "<version>"
 var commit = "<commit>"
 
 func main() {
+	//revive:disable:add-constant
 	ret := example.Add(2, 5)
-	fmt.Printf("result = %d\n", ret)
-	fmt.Printf("version = %s, commit = %s\n", version, commit)
+
+	_, err := fmt.Printf("result = %d\n", ret)
+	if err != nil {
+		panic(err)
+	}
+
+	_, err = fmt.Printf("version = %s, commit = %s\n", version, commit)
+	if err != nil {
+		panic(err)
+	}
 }
