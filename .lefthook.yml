@@ -6,7 +6,9 @@ pre-commit:
 
     - name: Go Lint
       glob: "*.go"
-      run: go tool staticcheck ./...
+      run: |
+        go vet ./...
+        go tool staticcheck ./...
 
     - name: Go Test
       glob: "*.go"
