@@ -101,3 +101,8 @@ Build binary.
 ```sh
 go build cmd/shell/main.go
 ```
+
+## Notes
+
+- Install [direnv](https://github.com/direnv/direnv-vscode) extension
+  if uses vscode and Remote SSH extension and Devbox.
