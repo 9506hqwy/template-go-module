@@ -66,6 +66,13 @@ go test ./... -bench "." -count N
 
 ### Updating
 
+Update dependency libraries.
+
+```sh
+go get -t -u ./...
+go mod tidy
+```
+
 Update dependency tools.
 
 ```sh
