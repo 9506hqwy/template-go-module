@@ -4,6 +4,16 @@ on:
   push:
     branches: [ main ]
     tags-ignore: [ '**' ]
+    paths-ignore:
+      - '.devcontainer/**'
+      - '.github/**'
+      - '.vscode/**'
+      - '.envrc'
+      - '.gitignore'
+      - '.lefthook.yml'
+      - 'devbox.json'
+      - 'LICENSE'
+      - 'README.md'
   pull_request:
 
 permissions:
