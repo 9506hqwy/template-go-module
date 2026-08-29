@@ -53,3 +53,7 @@ tasks:
   doc-gen:
     cmds:
       - ./scripts/gen-docs.sh
+
+  sbom-gen:
+    cmds:
+      - ./scripts/gen-sbom.sh
