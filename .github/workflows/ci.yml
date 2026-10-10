@@ -8,7 +8,6 @@ on:
       - '.devcontainer/**'
       - '.github/**'
       - '.vscode/**'
-      - '.envrc'
       - '.gitignore'
       - '.lefthook.yml'
       - 'devbox.json'
