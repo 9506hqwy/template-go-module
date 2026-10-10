@@ -33,8 +33,3 @@ bin/
 
 # profile
 *.prof
-
-# Devbox
-#   lock file (template only)
-.devbox/
-devbox.lock
